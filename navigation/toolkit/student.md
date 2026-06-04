@@ -34,12 +34,11 @@ permalink: /student
       <p>View all assignment announcements in one place.</p>
     </div>
   </a>
-  
-  <a href="{{site.baseurl}}/student/calendar" class="toolkit-button" data-description="Never lose track of your assignments again with the Assignment Integrated Calendar!">
-    <img src="{{site.baseurl}}/images/toolkit-nav-buttons/calendar.png" alt="Calendar" />
-    <span class="button-name">Calendar</span>
+  <a href="{{site.baseurl}}/student/appointments" class="toolkit-button" data-description="Schedule a meeting with Mr. Mort. Pick a date, time slot, and reason — your request goes straight to the teacher for approval.">
+    <img src="{{site.baseurl}}/images/toolkit-nav-buttons/calendar.png" alt="Appointments" />
+    <span class="button-name">Appointments</span>
     <div class="description">
-      <p>View all assignment announcements in one place.</p>
+      <p>Request a meeting with Mr. Mort and track the status of your appointment.</p>
     </div>
   </a>
 </div>

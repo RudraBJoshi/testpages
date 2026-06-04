@@ -1,6 +1,6 @@
 <ul class="flex flex-col py-4 space-y-1">
   {% for section in site.data.aesthetihawk_sidebar %}
-    <li class="px-5">
+    <li class="px-5 sidebar-section-group" {% if section.roles %}data-required-roles="{{ section.roles }}"{% endif %}>
       <div class="flex flex-row items-center h-8">
         <div class="text-sm font-light tracking-wide text-neutral-500">{{ section.section }}</div>
       </div>
@@ -9,7 +9,7 @@
     {% assign current = page.active_tab | default: "" | strip %}
     {% for item in section.items %}
       {% assign item_id = item.id | strip %}
-      <li>
+      <li {% if section.roles %}data-required-roles="{{ section.roles }}"{% endif %}>
         <a id="sidebar-{{ item_id }}" href="{{ site.baseurl }}{{ item.url }}"
            class="nav-item relative flex flex-row items-center h-11 focus:outline-none pr-6 border-l-4
            {% if current == item_id %}
@@ -24,6 +24,7 @@
             </svg>
           </span>
           <span class="ml-2 text-sm tracking-wide truncate">{{ item.title }}</span>
+          <span id="notif-badge-{{ item_id }}" class="sidebar-notif-badge hidden"></span>
         </a>
       </li>
     {% endfor %}

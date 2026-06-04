@@ -58,7 +58,25 @@
 
 <!-- set active sidebar tab -->
 <script type="module">
-    // tmport handlelogout from external file and attach to window for onclick usage
     import { handleLogout } from '{{site.baseurl}}/assets/js/api/logout.js';
+    import { pythonURI, fetchOptions } from '{{site.baseurl}}/assets/js/api/config.js';
     window.handleLogout = handleLogout;
+
+    // Hide sidebar sections/items the current user's role cannot access
+    (async () => {
+        try {
+            const res = await fetch(`${pythonURI}/api/id`, { ...fetchOptions, method: 'GET' });
+            if (!res.ok) return;
+            const user = await res.json();
+            const role = (user.role || '').trim();
+
+            document.querySelectorAll('[data-required-roles]').forEach(el => {
+                const allowed = el.dataset.requiredRoles.split(',').map(r => r.trim());
+                if (!allowed.includes(role)) el.style.display = 'none';
+            });
+        } catch (e) {
+            // If unauthenticated, hide all role-restricted items
+            document.querySelectorAll('[data-required-roles]').forEach(el => el.style.display = 'none');
+        }
+    })();
 </script>
