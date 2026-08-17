@@ -32,46 +32,58 @@ web_dev_layers: &web_dev_layers |
     +----------------+
 
 # CSP course meta data
+course:
+  code: CSP
+  title: "CSP - Computer Science Principles"
+  subtitle: "Projects, Principles"
+  mission: "AP Computer Science Principles (CSP 1, CSP 2, DS 1) incorporates College Board curriculum through Project-base learning. Teams, Data, Coding, Computer Systems, and Networks are utilized to build community serving projects and engage client in discussions about solutions."
+  progression_key: 10
+  learning_journey:
+    - "Python Fundamentals"
+    - "Algorithm Design & Analysis"
+    - "Data Structures Exploration"
+    - "Team Project Development"
+  zone_title: "CSP Zone - Principles of Programming"
+
 Sprint1:
   shared: "Onboarding"
   start: 0
   end: 4
 
   0:
-    theme: "Code Runner Review"
+    theme: "Computer System and Networks"
     goals:
-      - "Data Types: Strings, Numbers, and Booleans"
-      - "Control Structures: Selection and Iteration"
-      - "Modularization: Functions and Classes"
+      - "Environment Check: OS tools, Python, Jupyter"
+      - "Automation: VS Code, Code Runners"
+      - "Portfolio:  GitHub, GitHub Pages"
 
   1:
-    theme: "Development Essentials"
+    theme: "Algorithms and Programming"
     goals:
-      - "Computing Environment: Operating Systems, Tools, and Projects"
-      - "SDLC: Build, Test, Commit, and Deploy"
-      - "GitHub Pages: Overview and Deployment"
+      - "Data Types: Strings, Numbers, Booleans"
+      - "Control Structures: Selection, Iteration"
+      - "Modularization: Functions, Classes"
 
   2:
-    theme: "Agile Development"
+    theme: "Creative Development"
     goals:
-      - "Coding Challenge: Team Programming"
-      - "Sprints: Planning, Execution, and Iteration"
-      - "Tracking: Kanban Boards and Burndown Charts"
+      - "Architecture Design: Frontend-to-Backend"
+      - "CI/CD: Git commit, Test, Deploy pipelines"
+      - "Project Management: Kanban, Backlog, Burndown"
 
   3:
     theme: "CPT: 30% of the AP CSP Exam"
     goals:
-      - "Challenge: Build a Full Stack Project"
-      - "Frontend: JavaScript and Jekyll"
-      - "Backend: Python and Flask"
+      - "Create Performance Task (CPT)"
+      - "Frontend Connection"
+      - "Backend API endpoints"
 
   4:
-    theme: "Team Programming"
+    theme: "Team Programming and Project Management"
     goals:
-      - "Coordination: Scrum and Standups"
-      - "Version Control: Repositories, Branching, and Pull Requests"
-      - "Retrospective: Reflection and Improvement"
-
+      - "Integration:  Test & Debug"
+      - "Review: Backlog & Grooming"
+      - "Retrospective: Improvement"
 
 Sprint2:
   title: "Full Stack Foundations"
