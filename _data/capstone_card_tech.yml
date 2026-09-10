@@ -2,6 +2,7 @@
 # All data sourced directly from _data/*_infograph.yml files.
 # Projects without a real tech array are omitted (no tooltip > wrong tooltip).
 
+
 "Assignment Resources Platform":
   - "Spring Boot 3.5 / Java 21"
   - "Jekyll + Static JS"
@@ -146,3 +147,18 @@
   - "Gemini AI Grading"
   - "Jekyll / Liquid"
   - "JavaScript (Vanilla)"
+
+"OCS Intelligence LLM":
+  - "LLM"
+  - "FlashAttention"
+  - "vLLM"
+  - "Distributed Inference"
+  - "Observability"
+
+"Communication System":
+  - "Spring Boot / Java"
+  - "STOMP over SockJS"
+  - "REST at /api/groups"
+  - "JWT Cookie Auth"
+  - "JPA + S3 message store"
+  - "Jekyll Includes"
