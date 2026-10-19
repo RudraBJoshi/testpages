@@ -25,6 +25,9 @@ show_reading_time: false
                 <button type="submit" class="large primary submit-button">Login</button>
             </p>
             <p id="message" style="color: red;"></p>
+            <p style="text-align: center;">
+                <a href="{{site.baseurl}}/support?topic=reset">Forgot your password?</a>
+            </p>
         </form>
     </div>
     <div class="signup-card">
@@ -38,7 +41,7 @@ show_reading_time: false
                 <br><strong>You must use an email ending in @stu.powayusd.com or @powayusd.com</strong>
             </p>
             <div id="g_id_onload"
-                 data-client_id="65827797404-ccjleg7jg4g2an8ddpmhnlca4ii2gk8q.apps.googleusercontent.com"
+                 data-client_id="{{ site.google_client_id }}"
                  data-callback="handleGoogleSignIn"
                  data-auto_prompt="false">
             </div>
@@ -59,6 +62,12 @@ show_reading_time: false
         </div>
         <!-- Signup Form -->
         <form id="signupForm" onsubmit="handleSignupSubmit(event);">
+            <div class="form-group">
+                <select id="signupRole">
+                    <option value="student" selected>I am a Student</option>
+                    <option value="mentor">I am a Mentor</option>
+                </select>
+            </div>
             <div class="form-group">
                 <input type="text" id="name" placeholder="Name" required>
             </div>
@@ -111,12 +120,11 @@ show_reading_time: false
 </div>
 
 <script type="module">
-    import { login, pythonURI, javaURI, fetchOptions } from '{{site.baseurl}}/assets/js/api/config.js';
+    import { login, pythonURI, javaURI, fetchOptions, GOOGLE_CLIENT_ID } from '{{site.baseurl}}/assets/js/api/config.js';
 
     let signupFormData = {};
     let verifiedSchoolEmail = null;
     let validationTimeout = null;
-    const GOOGLE_CLIENT_ID = "65827797404-ccjleg7jg4g2an8ddpmhnlca4ii2gk8q.apps.googleusercontent.com";
 
     // Password validation with debouncing (1.5 second delay)
     function validatePasswordsDebounced() {
@@ -242,6 +250,16 @@ show_reading_time: false
         }
     }
 
+    // A mentor has no student ID or school, so those fields are hidden and not required.
+    document.getElementById('signupRole').addEventListener('change', function () {
+        const isMentor = this.value === 'mentor';
+        ['signupSid', 'signupSchool'].forEach(id => {
+            const field = document.getElementById(id);
+            field.required = !isMentor;
+            field.closest('.form-group').style.display = isMentor ? 'none' : '';
+        });
+    });
+
     window.handleSignupSubmit = function(event) {
         event.preventDefault();
 
@@ -267,10 +285,16 @@ show_reading_time: false
             password: document.getElementById("signupPassword").value,
             kasmServerNeeded: false,
             kasm_server_needed: false,
+            accountType: document.getElementById("signupRole").value,
         };
 
-        // Show OAuth verification
-        showOAuthVerification();
+        // A mentor cannot use a school email, so they skip it and wait for a Teacher/Admin
+        // to verify the account. A student verifies with Google first.
+        if (signupFormData.accountType === 'mentor') {
+            signup();
+        } else {
+            showOAuthVerification();
+        }
     }
 
     function showOAuthVerification() {
@@ -302,6 +326,7 @@ show_reading_time: false
                 return;
             }
             verifiedSchoolEmail = email;
+            signupFormData.idToken = response.credential;
             showOAuthStatus(`✅ School email verified: ${email}`);
 
             setTimeout(() => {

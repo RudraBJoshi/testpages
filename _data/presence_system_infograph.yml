@@ -1,0 +1,33 @@
+# Classroom Presence System Infographic
+Title: "Classroom Presence System"
+Description: "Traditional classroom attendance systems typically rely on a single observation or event to determine whether a student is present, which can be inaccurate and inefficient in determining analytics of actual time in classroom. Our system is intended to provide continuous and accurate tracking of student presence."
+
+Team:
+  - "Ruta Sirdeshmukh"
+  - "Vibha Mandayam"
+  - "Kush Shah"
+
+Repo: "https://github.com/vibha1019/crowpi-attendance"
+Year: "2026-2027"
+
+# Story order for the nav tabs and the Previous / Next pager.
+# key must match each page's rp_active front matter.
+Pages:
+  - key: hub
+    tab: "Overview"
+    url: "/capstone/presence-system/"
+  - key: pipeline
+    tab: "How It Works"
+    url: "/capstone/presence-system/pipeline/"
+  - key: tapreader
+    tab: "Tap Reader Build"
+    url: "/capstone/presence-system/tap-reader/"
+  - key: summary
+    tab: "Research"
+    url: "/capstone/presence-system/summary/"
+  - key: phases
+    tab: "Roadmap"
+    url: "/capstone/presence-system/phases/"
+  - key: technical
+    tab: "Technical"
+    url: "/capstone/presence-system/technical/"

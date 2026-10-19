@@ -2,7 +2,7 @@
 
 Founded and maintained by John Mortensen.
 
-Open Coding Society `Pages` is a project designed to support students in their Computer Science and Software Engineering education. It offers a wide range of resources including tech talks, code examples, and educational blogs.
+Open Coding Society `Pages` is a project designed to support students in their Computer Science education. It offers a wide range of resources including tech talks, code examples, and educational blogs.
 
 This GitHub Pages repository can be customized by the blogger to support computer science learning as the student works through the pathways of using Javascript, Python/Flask, Java/Spring. It is intended to support course work for Computer Science and Software Engineering (CSSE), AP Computer Science Principles (APCSP or CSP), AP Computer Science 'A' (APCSA or CSA), and Computer Science Honors (CSH).
 
@@ -15,9 +15,8 @@ In general, students and instructors are expected to use GitHub Pages to build l
 Exchange of information from this repository to you personal GitHub Pages can be done in many ways...
 
 1. sharing a file, ie: `wget "raw-link.ipynb"`
-2. creating a template from this repository
-3. creating a fork to be shared by you and team members
-4. etc.
+2. creating a template from this repository to break off into custom projects
+3. creating a fork to be shared by you and team members to contribute back to OCS `pages`
 
 ---
 
@@ -25,7 +24,7 @@ Exchange of information from this repository to you personal GitHub Pages can be
 
 This project is in its 4th revision (aka 4.0).
 
-The project was initially based on a project called Fastpages. But this project has diverged from those roots into an independent entity, in fact most things (like the build system), are completely different.  The decision to separate from Fastpages was influenced by it's deprecation by the authors.  It is believed by our community that the authors of Fastpages turned toward the support of Quatro.  After that change of direction Fastpages did not align with the Instructors's goals. Thus, Open Coding Society 'Pages' has more of a raw development and classroom blogging purpose. But, we are grateful to Fastpages for their inspiration.  But, we are grateful to Fastpages for their inspiration.
+The project was initially based on a project called Fastpages. But this project has diverged from those roots into an independent entity, in fact most things (like the build system), are completely different.  The decision to separate from Fastpages was influenced by it's deprecation by the original authors.  It is believed by our community that the authors of Fastpages turned toward the support of Quatro.  After that change of direction Fastpages did not align with the OCS `pages` goals. Thus, `pages` has more of a raw development and classroom blogging purpose. But, as we parted we were grateful to Fastpages for their inspiration.  Also, this project originations were focused around the GitHub Pages Minima theme and still uses it as a remote.
 
 ### License
 
@@ -265,6 +264,39 @@ Test Jupyter Notebook conversions (ie .ipynb -> .md), this is the best choice to
   make convert
   ```
 
+Notebook conversion is incremental. Registered projects publish directly from
+`_projects/<category>/<project>/` to `_posts/projects/<project>/`; they no longer
+stage notebook copies under `_notebooks/projects/`. Existing filenames, lesson
+permalinks, and runner markup are retained.
+
+```bash
+# Publish changed notebooks in one project
+make -C _projects/lessons/java build
+
+# Convert one project or legacy source
+make convert-single NOTEBOOK_FILE=_projects/lessons/java/notebooks/2025-09-21-3.1.ipynb
+
+# Force legacy notebook conversion, or reduce conversion workers
+make convert CONVERT_FLAGS=--force CONVERT_JOBS=1
+```
+
+Project builds use one Python batch with up to four workers. Unchanged notebooks
+are skipped using `.notebook-conversion-cache/`; editing the source or converter,
+or deleting/modifying the output, causes reconversion. Identical Markdown is not
+rewritten. `make convert` scans legacy notebook sources only; registered-project
+build targets handle project sources. `make split-courses` still publishes
+multi-course variants from generated posts.
+
+`make dev` now retains generated output and performs one incremental build of
+the selected projects instead of cleaning and converting them twice. Use
+`make clean` explicitly when a fresh start is needed. Generated project Makefiles
+are refreshed by registered builds or `make generate-makefiles`, while tracked
+overrides are preserved. After changing the pipeline, restart existing watchers
+so they use the new recipes.
+
+Converter regression tests:
+`venv/bin/python -m unittest discover -s tests -p test_convert_notebooks.py`.
+
 ---
 
 ## Development Support
@@ -453,3 +485,4 @@ UDL is not a method but a **design lens** to make learning **accessible and mean
 | **Depth & Growth** | Fink | Human, affective, reflective development |
 | **Access & Design** | UDL | Inclusive and flexible access to all learners |
 | **Workflow & Rhythm** | Agile + Design Thinking + Gagné | Iteration, planning, feedback, reflection ceremonies |
+
